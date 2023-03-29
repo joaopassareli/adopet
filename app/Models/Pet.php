@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Pet extends Model
 {
@@ -26,4 +27,12 @@ class Pet extends Model
         'status',
         'statusDate'
     ];
+
+    // Function that list all the Pets in alphabetical order by default
+    protected static function booted()
+    {
+        self::addGlobalScope('ordered', function (Builder $queryBuilder) {
+            $queryBuilder->orderBy('name');
+        });
+    }
 }
