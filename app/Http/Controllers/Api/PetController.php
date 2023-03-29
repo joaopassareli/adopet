@@ -34,6 +34,7 @@ class PetController extends Controller
         $pet = Pet::whereId($pet)
             ->with('seasons.episodes')
             ->first();
+
         return $pet;
     }
 }
