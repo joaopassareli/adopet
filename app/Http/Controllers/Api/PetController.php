@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 
 class PetController extends Controller
 {
+    // Fornece o dado de todos os pets já cadastrados
     public function index()
     {
         return Pet::all();
