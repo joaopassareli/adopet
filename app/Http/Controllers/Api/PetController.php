@@ -4,18 +4,31 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Pet;
 use Illuminate\Http\Request;
+use App\Repository\PetRepository;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PetFormRequest;
 
 class PetController extends Controller
 {
-    // Fornece o dado de todos os pets já cadastrados
-    public function index()
+    public function __construct(private PetRepository $petRepository)
     {
-        return Pet::all();
     }
 
-    public function store()
-    {}
+    public function index()
+    {
+        $pets = $this->petRepository->getAllPets();
+
+        if (empty($pet)) {
+            return response()->json(['errorMessage' => 'Pets info not found.'], 404);
+        }
+
+        return response()->json(['pets' => $pets], 200);
+    }
+
+    public function store(PetFormRequest $request)
+    {
+        return response()->json($this->petRepository->add($request), 201);
+    }
 
     public function update()
     {}
