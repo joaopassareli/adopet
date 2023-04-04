@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\Pet;
 use App\Services\PetService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PetFormRequest;
 
@@ -14,7 +13,7 @@ class PetController extends Controller
     {
     }
 
-    public function index ()
+    public function index()
     {
         $pets = $this->petService->index();
 
@@ -25,16 +24,23 @@ class PetController extends Controller
         return response()->json(['pets' => $pets], 200);
     }
 
-    public function store (PetFormRequest $request)
+    public function store(PetFormRequest $request)
     {
         return response()->json($this->petService->createPet($request), 201);
     }
 
-    public function update ()
+    public function update(Pet $pet, PetFormRequest $request)
     {
+        return response()->json($this->petService->updatePetData($pet, $request), 200);
     }
 
-    public function destroy ()
+    public function destroy(int $petId)
     {
+        return response()->json($this->petService->destroyPet($petId));
+    }
+
+    public function show(int $petId)
+    {
+        return response()->json($this->petService->showPet($petId), 200);
     }
 }

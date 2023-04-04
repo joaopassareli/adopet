@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('owner');
             $table->string('profile_picture_url');
             $table->string('status');
-            $table->string('status_date');
+            $table->datetime('status_date');
             $table->timestamps();
         });
     }

@@ -23,9 +23,9 @@ class Pet extends Model
         'city',
         'state',
         'owner',
-        'profilePictureUrl',
+        'profile_picture_url',
         'status',
-        'statusDate'
+        'status_date'
     ];
 
     // Function that list all the Pets in alphabetical order by default

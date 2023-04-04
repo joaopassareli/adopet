@@ -15,7 +15,7 @@ class PetRepository
         return Pet::all();
     }
 
-    public function add(PetFormRequest $request): Pet
+    public function add(PetFormRequest $request)
     {
         return DB::transaction(function () use($request) {
             $pet = Pet::create([
@@ -26,12 +26,65 @@ class PetRepository
                 'city' => $request->city,
                 'state' => $request->state,
                 'owner' => $request->owner,
-                'profilePictureUrl' => $request->profilePictureUrl,
+                'profile_picture_url' => $request->profile_picture_url,
                 'status' => $request->status,
-                'statusDate' => $request->statusDate
+                'status_date' => $request->status_date
             ]);
 
-            return $pet;
+            return response()->json([
+                'message' => 'Pet saved with success',
+                'status' => 201,
+                'pet_id' => $pet->id,
+                'pet' => $pet,
+            ]);
         });
+    }
+
+    public function update(Pet $pet, PetFormRequest $request)
+    {
+        $pet->fill($request->all());
+        $pet->save();
+
+        return response()->json([
+            'message' => 'Pet data updated successfully',
+            'id' => $pet->id,
+            'status' => 200,
+        ]);
+    }
+
+    public function destroy(int $petId)
+    {
+        $pet = Pet::find($petId);
+
+        if (empty($pet)) {
+            return response()->json([
+                'message' => 'Pet with ID ' . $petId . ' not found',
+                'status' => 404,
+            ]);
+        }
+
+        Pet::destroy($petId);
+
+        return response()->json([
+            'message' => "Pet {$pet->name} deleted successfully",
+            'id' => $pet->id,
+        ]);
+    }
+
+    public function show(int $petId)
+    {
+        $pet = Pet::find($petId);
+
+        if (empty($pet)) {
+            return response()->json([
+                'message' => 'Pet not found',
+                'status' => 404,
+            ]);
+        }
+
+        return response()->json([
+            'status' => 200,
+            'pet' => $pet,
+        ]);
     }
 }

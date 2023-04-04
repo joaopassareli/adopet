@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Requests;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -22,16 +24,16 @@ class PetFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'              => ['required', 'min:3', 'max:255'],
-            'species'           => ['required', 'min:3', 'max:255'],
-            'size'              => ['required', 'min:3', 'max:255'],
-            'personality'       => ['required', 'min:3', 'max:255'],
-            'city'              => ['required', 'min:3', 'max:50'],
-            'state'             => ['required', 'max:2'],
-            'owner'             => ['required', 'min:3', 'max:255'],
-            'profilePictureUrl' => ['required', 'min:3', 'max:255'],
-            'status'            => ['required', 'min:3', 'max:255'],
-            'statusDate'        => ['date']
+            'name' => ['required', 'min:3', 'max:255'],
+            'species' => ['required', 'min:3', 'max:255'],
+            'size' => ['required', 'min:3', 'max:255'],
+            'personality' => ['required', 'min:3', 'max:255'],
+            'city' => ['required', 'min:3', 'max:50'],
+            'state' => ['required', 'max:2'],
+            'owner' => ['min:3', 'max:255'],
+            'profile_picture_url' => [ 'min:3', 'max:255'],
+            'status' => ['required', 'min:3', 'max:255'],
+            'status_date' => ['date'],
         ];
     }
 
@@ -55,6 +57,14 @@ class PetFormRequest extends FormRequest
             'city.max' => 'O campo Cidade não pode possuir mais que :max caracteres',
             //
             'state.required' => 'O campo Estado é obrigatório e deve ser preenchido',
+            //
+            'status.require' => 'O campo Status é obrigatório e deve ser preenchido',
+
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        throw new HttpResponseException(response()->json($validator->errors(), 422));
     }
 }
