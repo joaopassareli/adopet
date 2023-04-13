@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\PetController;
+use App\Http\Controllers\PetController;
+use App\Http\Controllers\TutorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,6 @@ use App\Http\Controllers\Api\PetController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::apiResource('/pets', PetController::class);
+Route::apiResource('/tutors', TutorController::class);

@@ -38,14 +38,14 @@ class TutorRepository
         });
     }
 
-    public function update(Pet $pet, TutorFormRequest $request)
+    public function update(Tutor $tutor, TutorFormRequest $request)
     {
-        $pet->fill($request->all());
-        $pet->save();
+        $tutor->fill($request->all());
+        $tutor->save();
 
         return response()->json([
-            'message' => 'Pet data updated successfully',
-            'id' => $pet->id,
+            'message' => 'Tutor data updated successfully',
+            'id' => $tutor->id,
             'status' => 200,
         ]);
     }
@@ -56,7 +56,7 @@ class TutorRepository
 
         if (empty($tutor)) {
             return response()->json([
-                'message' => 'Pet with ID ' . $tutorId . ' not found',
+                'message' => 'Tutor with ID ' . $tutorId . ' not found',
                 'status' => 404,
             ]);
         }

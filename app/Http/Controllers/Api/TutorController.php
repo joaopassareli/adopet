@@ -27,7 +27,6 @@ class TutorController extends Controller
 
     public function store(TutorFormRequest $request)
     {
-        exit();
         return response()->json($this->tutorService
             ->createTutor($request), 201);
     }

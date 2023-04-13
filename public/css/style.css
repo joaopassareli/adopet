@@ -1,0 +1,39 @@
+/* CSS do Cabeçalho */
+/* Fim CSS do Cabeçalho */
+
+
+/* CSS do Body */
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: radial-gradient(circle, #fefefe, whitesmoke);
+}
+
+main {
+    margin-top: 2em;
+}
+
+.tittle {
+    text-align: center;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+    text-shadow: 10px 10px 20px lightgrey;
+}
+
+
+.btn {
+    box-sizing: border-box;
+    box-shadow: 10px 10px 20px gray;
+}
+
+/* Fim CSS do Body */
+
+
+/* CSS do Rodapé */
+footer {
+    background:linear-gradient(to top, lightgrey, rgb(213, 223, 226));
+    margin-top: 2em;
+}
+
+.rodape {
+    text-align: center;
+}
